@@ -1,10 +1,8 @@
 import supertest from 'supertest';
 import { expect } from 'chai';
 
-
 describe('auth', function (){
     const request = supertest(process.env.BASE_URL);
-
     it('successful log in', function (){
         request
          .post('/auth')
