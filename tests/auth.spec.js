@@ -29,8 +29,7 @@ describe('auth', function (){
         });
 
         it('response body contains error message', function() {
-
-                expect(authHelper.response.body.message).to.eq('Wrong login or password.');
+            expect(authHelper.response.body.message).to.eq('Wrong login or password.');
 
         });
     });
