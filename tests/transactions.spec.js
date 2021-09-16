@@ -1,17 +1,27 @@
 import { expect } from 'chai';
 import TransactionsHelper from '../helpers/transactions.helper';
 import ConfigHelper from '../helpers/config.helper';
+import UsersHelper from '../helpers/users.helper';
 
 describe('transactions', function () {
     let transactionsHelper = new TransactionsHelper();
     let configHelper = new ConfigHelper();
-
+    let userHelper = new UsersHelper();
+    let id1 = null;
+    let id2 = null;
+    let amount = null;
 
     describe('create transactions', function () {
 
         before(async function () {
-            await transactionsHelper.createManyTrans(1);
-        })
+            await userHelper.createUser();
+            id1 = userHelper.response.body.id;
+            await userHelper.createUser();
+            id2 = userHelper.response.body.id;
+            await configHelper.getConfig();
+            amount = Math.floor(Math.random() * configHelper.response.body.initial_amount);
+            await transactionsHelper.createTrans(id1, id2, amount);
+        });
 
         it('status code is 200', function () {
             expect(transactionsHelper.response.statusCode).to.eq(200);
@@ -22,24 +32,32 @@ describe('transactions', function () {
         });
 
         it('response body contains amount',  function() {
-            expect(transactionsHelper.response.body.amount).to.eq(configHelper.amount);
+            expect(transactionsHelper.response.body.amount).to.eq(amount);
         });
 
         it('response body contains "from" equal id1',  function() {
-            expect(transactionsHelper.response.body.from).to.eq(transactionsHelper.id1);
+            expect(transactionsHelper.response.body.from).to.eq(id1);
         });
 
         it('response body contains "to" equal id2',  function() {
-            expect(transactionsHelper.response.body.to).to.eq(transactionsHelper.id2);
+            expect(transactionsHelper.response.body.to).to.eq(id2);
         });
     });
 
     describe('get all transactions', function () {
 
         before(async function () {
-            await transactionsHelper.createManyTrans(3);
+            for await (const user of Array(3)) {
+                await userHelper.createUser();
+                id1 = userHelper.response.body.id;
+                await userHelper.createUser();
+                id2 = userHelper.response.body.id;
+                await configHelper.getConfig();
+                amount = Math.floor(Math.random() * configHelper.response.body.initial_amount);
+                await transactionsHelper.createTrans(id1, id2, amount);
+            }
             await transactionsHelper.getAllTrans();
-        })
+        });
 
         it('status code is 200', function () {
             expect(transactionsHelper.response.statusCode).to.eq(200);
@@ -69,7 +87,13 @@ describe('transactions', function () {
     describe('get specific transaction', function() {
 
         before(async function() {
-            await transactionsHelper.createManyTrans(1);
+            await userHelper.createUser();
+            id1 = userHelper.response.body.id;
+            await userHelper.createUser();
+            id2 = userHelper.response.body.id;
+            await configHelper.getConfig();
+            amount = Math.floor(Math.random() * configHelper.response.body.initial_amount);
+            await transactionsHelper.createTrans(id1, id2, amount);
             await transactionsHelper.getSpecificTrans(transactionsHelper.response.body.id);
         });
 

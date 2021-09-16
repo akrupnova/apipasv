@@ -25,27 +25,27 @@ class ConfigHelper {
             });
     }
 
-    // async deleteConfig() {
-    //     await supertest(process.env.BASE_URL)
-    //         .delete('/config')
-    //         .set({ Authorization: `Bearer ${process.env.TOKEN}`})
-    //         .then((res) => {
-    //             this.response = res;
-    //         });
-    // }
-    //
-    // async patchConfig() {
-    //     await supertest(process.env.BASE_URL)
-    //         .patch('/config')
-    //         .set({ Authorization: `Bearer ${process.env.TOKEN}`})
-    //         .send({
-    //             number_of_entries: 20,
-    //             initial_amount: 500
-    //         })
-    //         .then((res) => {
-    //             this.response = res;
-    //         });
-    // }
+    async deleteConfig() {
+        await supertest(process.env.BASE_URL)
+            .delete('/config')
+            .set({ Authorization: `Bearer ${process.env.TOKEN}`})
+            .then((res) => {
+                this.response = res;
+            });
+    }
+
+    async patchConfig() {
+        await supertest(process.env.BASE_URL)
+            .patch('/config')
+            .set({ Authorization: `Bearer ${process.env.TOKEN}`})
+            .send({
+                number_of_entries: Math.floor(Math.random() * 10),
+                initial_amount: Math.floor(Math.random() * 1000)
+            })
+            .then((res) => {
+                this.response = res;
+            });
+    }
 }
 
 export default ConfigHelper;
