@@ -10,7 +10,7 @@ describe( 'users', function() {
 
     describe('user creation', function () {
         before(async function (){
-            await userHelper.create();
+            await userHelper.createUser();
         });
 
         it('response status code is 200',  function() {
@@ -29,8 +29,8 @@ describe( 'users', function() {
     describe('user deletion', function () {
 
         before(async function () {
-            await userHelper.create();
-            await userHelper.delete(userHelper.response.body.id);
+            await userHelper.createUser();
+            await userHelper.deleteUser(userHelper.response.body.id);
         });
 
         it('response code is 200', function() {
@@ -46,9 +46,9 @@ describe( 'users', function() {
 
         before(async function() {
             for await (const user of Array(3)){
-                await userHelper.create();
+                await userHelper.createUser();
             }
-            await userHelper.getAll();
+            await userHelper.getAllUsers();
         });
 
         it('response code is 200', function() {
@@ -71,8 +71,8 @@ describe( 'users', function() {
     describe('get specific user', function() {
 
         before(async function() {
-            await userHelper.create();
-            await userHelper.getSpecific(userHelper.response.body.id);
+            await userHelper.createUser();
+            await userHelper.getSpecificUser(userHelper.response.body.id);
         });
 
         it('response code is 200', function() {

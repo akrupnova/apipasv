@@ -1,20 +1,23 @@
-import supertest from "supertest";
+import supertest from 'supertest';
 
 class UsersHelper{
     constructor() {
         this.response = null;
+        this.id = null;
+        this.id2 = null;
     }
 
-    async create(){
+    async createUser(){
         await supertest(process.env.BASE_URL)
             .post('/users')
             .set({ Authorization: `Bearer ${process.env.TOKEN}`})
             .then((res) => {
                 this.response = res;
+                this.id = this.response.body.id;
             });
     }
 
-    async delete(id){
+    async deleteUser(id){
         await supertest(process.env.BASE_URL)
             .delete('/users')
             .set({ Authorization: `Bearer ${process.env.TOKEN}`})
@@ -24,7 +27,7 @@ class UsersHelper{
             });
     }
 
-    async getAll(){
+    async getAllUsers(){
         await supertest(process.env.BASE_URL)
             .get('/users')
             .set({ Authorization: `Bearer ${process.env.TOKEN}`})
@@ -33,7 +36,7 @@ class UsersHelper{
             });
     }
 
-    async getSpecific(id){
+    async getSpecificUser(id){
         await supertest(process.env.BASE_URL)
             .get(`/users?id=${id}`)
             .set({ Authorization: `Bearer ${process.env.TOKEN}`})
