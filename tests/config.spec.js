@@ -62,6 +62,11 @@ describe('configuration', function() {
             expect(configHelper.response.body.initial_amount).to.eq(initial_amount);
         });
 
+        it('new user has updated initial_amount', async function() {
+            await userHelper.createUser();
+            expect(userHelper.response.body.amount).to.eq(initial_amount);
+        });
+
         it('response body contains number_of_entries', async function() {
             for await (const user of Array( number_of_entries + 1)) {
                 await userHelper.createUser();
