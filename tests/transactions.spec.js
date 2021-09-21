@@ -7,20 +7,24 @@ describe('transactions', function () {
     let transactionsHelper = new TransactionsHelper();
     let configHelper = new ConfigHelper();
     let userHelper = new UsersHelper();
-    let id1 = null;
-    let id2 = null;
+    let idFrom = null;
+    let idTo = null;
     let amount = null;
+    let amountFrom = null;
+    let amountTo = null;
 
-    describe('create transactions', function () {
+    describe.skip('create transactions', function () {
 
         before(async function () {
             await userHelper.createUser();
-            id1 = userHelper.response.body.id;
+            idFrom = userHelper.response.body.id;
+            amountFrom = userHelper.response.body.amount;
             await userHelper.createUser();
-            id2 = userHelper.response.body.id;
+            idTo = userHelper.response.body.id;
+            amountTo = userHelper.response.body.amount;
             await configHelper.getConfig();
             amount = Math.floor(Math.random() * configHelper.response.body.initial_amount);
-            await transactionsHelper.createTrans(id1, id2, amount);
+            await transactionsHelper.createTrans(idFrom, idTo, amount);
         });
 
         it('status code is 200', function () {
@@ -35,12 +39,21 @@ describe('transactions', function () {
             expect(transactionsHelper.response.body.amount).to.eq(amount);
         });
 
-        it('response body contains "from" equal id1',  function() {
-            expect(transactionsHelper.response.body.from).to.eq(id1);
+        it('response body contains "from" equal idFrom',  function() {
+            expect(transactionsHelper.response.body.from).to.eq(idFrom);
         });
 
-        it('response body contains "to" equal id2',  function() {
-            expect(transactionsHelper.response.body.to).to.eq(id2);
+        it('response body contains "to" equal idTo',  function() {
+            expect(transactionsHelper.response.body.to).to.eq(idTo);
+        });
+
+        it('amount of userFrom became less by amount transaction', async function() {
+            await userHelper.getAllUsers();
+            expect(userHelper.response.body.find(({id}) => id === idFrom).amount).to.eq(amountFrom - amount);
+        });
+
+        it('amount of userTo became more by amount transaction', async function() {
+            expect(userHelper.response.body.find(({id}) => id === idTo).amount).to.eq(amountTo + amount);
         });
     });
 
@@ -49,12 +62,12 @@ describe('transactions', function () {
         before(async function () {
             for await (const user of Array(3)) {
                 await userHelper.createUser();
-                id1 = userHelper.response.body.id;
+                idFrom = userHelper.response.body.id;
                 await userHelper.createUser();
-                id2 = userHelper.response.body.id;
+                idTo = userHelper.response.body.id;
                 await configHelper.getConfig();
                 amount = Math.floor(Math.random() * configHelper.response.body.initial_amount);
-                await transactionsHelper.createTrans(id1, id2, amount);
+                await transactionsHelper.createTrans(idFrom, idTo, amount);
             }
             await transactionsHelper.getAllTrans();
         });
@@ -88,12 +101,12 @@ describe('transactions', function () {
 
         before(async function() {
             await userHelper.createUser();
-            id1 = userHelper.response.body.id;
+            idFrom = userHelper.response.body.id;
             await userHelper.createUser();
-            id2 = userHelper.response.body.id;
+            idTo = userHelper.response.body.id;
             await configHelper.getConfig();
             amount = Math.floor(Math.random() * configHelper.response.body.initial_amount);
-            await transactionsHelper.createTrans(id1, id2, amount);
+            await transactionsHelper.createTrans(idFrom, idTo, amount);
             await transactionsHelper.getSpecificTrans(transactionsHelper.response.body.id);
         });
 

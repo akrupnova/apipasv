@@ -6,7 +6,7 @@ describe('auth', function (){
 
     describe('successful log in', function() {
         before(async function() {
-            await authHelper.get(process.env.LOGIN, process.env.Password);
+            await authHelper.get(process.env.LOGIN, process.env.PASSWORD);
         });
 
         it('response status code is 200', function() {
