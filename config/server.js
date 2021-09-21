@@ -20,11 +20,11 @@ function start (port){
 
     app.post('/users', async function(req, res) {
     //    const token = req.header.Authorization.TOKEN;
-        const token = undefined;
-        if(token)
+    //    const token = undefined;
+     //   if(token)
         await res.status(200).send(mockResponses.users.create.auth);
-        else
-            await res.status(404).send( mockResponses.users.create.unauth)
+   //     else
+  //          await res.status(404).send( mockResponses.users.create.unauth)
     });
 
     app.get('/users', async function(req, res) {
