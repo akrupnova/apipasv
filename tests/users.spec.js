@@ -4,7 +4,7 @@ import { getRandomItem } from '../helpers/common.helper';
 import ConfigHelper from '../helpers/config.helper';
 
 
-describe( 'users', function() {
+describe.only( 'users', function() {
     let userHelper = new UsersHelper();
     let configHelper = new ConfigHelper();
 

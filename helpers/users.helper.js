@@ -4,7 +4,6 @@ class UsersHelper{
     constructor() {
         this.response = null;
         this.id = null;
-        this.id2 = null;
     }
 
     async createUser(){

@@ -34,13 +34,13 @@ class ConfigHelper {
             });
     }
 
-    async patchConfig() {
+    async patchConfig(new_entries, new_amount) {
         await supertest(process.env.BASE_URL)
             .patch('/config')
             .set({ Authorization: `Bearer ${process.env.TOKEN}`})
             .send({
-                number_of_entries: Math.floor(Math.random() * 10),
-                initial_amount: Math.floor(Math.random() * 1000)
+                number_of_entries: new_entries,
+                initial_amount: new_amount
             })
             .then((res) => {
                 this.response = res;

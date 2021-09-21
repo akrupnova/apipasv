@@ -1,0 +1,80 @@
+{
+  "auth": {
+    "valid": {
+      "token": "827a73c2-b530-4162-b68a-62a76e9462c6"
+    },
+    "invalid": {
+      "message": "Wrong login or password."
+    }
+  },
+  "users": {
+    "create": {
+      "auth": {
+         "id": "e53a077d-2b53-47c2-b78b-675309013e18",
+         "amount": 1000
+      },
+      "unauth": {
+        "message": "Unauthorized."
+      }
+    },
+
+    "getAll": [
+      {
+        "id": "e53a077d-2b53-47c2-b90b-675309013e18",
+        "amount": 1000
+      },
+      {
+        "id": "e53a077d-2b53-47c2-b77b-675309013e18",
+        "amount": 1000
+      },
+      {
+        "id": "e53a077d-2b53-47c2-b78b-675309013e18",
+        "amount": 1000
+      }
+    ],
+    "delete": {
+      "message": "User deleted."
+    }
+  },
+  "config": {
+    "get": {
+      "number_of_entries": 25,
+      "initial_amount": 1000
+    },
+    "delete": {
+      "message": "Data wiped out."
+    },
+    "patch": {
+      "number_of_entries": 10,
+      "initial_amount": 3000
+    }
+  },
+  "transactions": {
+    "create": {
+      "id": "0b22010c-e805-4537-9b02-cdfb185abce7",
+      "from": "bc82920e-54a7-4bf7-ba6f-cd1c2effa585",
+      "to": "2496c30b-d740-4bb5-a4e6-c32a7c517226",
+      "amount": 100
+    },
+    "getAll": [
+      {
+        "id": "0b22010c-e825-4537-9b02-cdfb185abce7",
+        "from": "bc82920e-54a7-4b77-ba6f-cd1c2effa585",
+        "to": "2496c30b-d740-4bb5-a4e6-c32a7c517226",
+        "amount": 100
+      },
+      {
+        "id": "0b22010c-e805-4537-9b02-cdfk185abce7",
+        "from": "bc82920e-54a7-4bf7-ba6f-cd1c2effa585",
+        "to": "2496c30b-d740-4bb5-a4e6-c32a7c517226",
+        "amount": 200
+      },
+      {
+        "id": "0b22010c-e805-4507-9b02-cdfb187abce7",
+        "from": "bc82920e-54a7-4bf7-ba6f-cd1c2effa585",
+        "to": "2496c30b-d740-4bb5-a4e6-c32a7c517226",
+        "amount": 300
+      }
+    ]
+  }
+}
